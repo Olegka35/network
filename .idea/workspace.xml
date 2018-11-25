@@ -2,9 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="93d06f06-5a2c-4b93-9d86-72f74d9081b9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/service/elements/switches/MySwitch.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/service/elements/IElement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/elements/IElement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/service/elements/router/IRouter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/elements/router/IRouter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/service/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/service/lan/AbstractLAN.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/lan/AbstractLAN.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/service/lan/LAN.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/lan/LAN.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/production/network/service/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/production/network/service/Server.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/production/network/service/elements/IElement.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/production/network/service/elements/IElement.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/production/network/service/elements/router/IRouter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/production/network/service/elements/router/IRouter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/production/network/service/lan/AbstractLAN.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/production/network/service/lan/AbstractLAN.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,29 +22,33 @@
     <session id="-1925274669">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="1" />
+          <entry key="project.closed" value="4" />
           <entry key="project.open.time.1" value="1" />
-          <entry key="project.opened" value="1" />
+          <entry key="project.open.time.11" value="1" />
+          <entry key="project.open.time.12" value="1" />
+          <entry key="project.open.time.13" value="1" />
+          <entry key="project.open.time.15" value="1" />
+          <entry key="project.opened" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="java" value="2" />
+          <entry key="java" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="2" />
+          <entry key="JAVA" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="3" />
+          <entry key="java" value="1125" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="3" />
+          <entry key="JAVA" value="1125" />
         </counts>
       </usages-collector>
     </session>
@@ -74,29 +84,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/service/Server.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="6" selection-start-line="6" selection-end-line="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/service/elements/router/route_table/IRouteTable.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="6" column="17" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/service/elements/nic/MyNIC.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
+            <state relative-caret-position="340">
+              <caret line="20" column="33" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -104,35 +99,65 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/service/elements/nic/NIC.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+            <state relative-caret-position="119">
+              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/service/elements/IElement.java">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/service/elements/switches/AbstractSwitch.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/service/lan/LAN.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="119">
-              <caret line="7" column="9" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="9" />
+              <caret line="7" selection-start-line="7" selection-end-line="7" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/service/elements/Element.java">
+        <entry file="file://$PROJECT_DIR$/src/service/lan/AbstractLAN.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="7" column="34" lean-forward="true" selection-start-line="6" selection-start-column="4" selection-end-line="7" selection-end-column="34" />
+            <state relative-caret-position="85">
+              <caret line="8" column="36" selection-start-line="8" selection-start-column="36" selection-end-line="8" selection-end-column="36" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/service/elements/router/IRouter.java">
+        <entry file="file://$PROJECT_DIR$/src/service/lan/MyLAN.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" selection-start-line="3" selection-end-line="3" />
+            <state relative-caret-position="221">
+              <caret line="13" selection-start-line="13" selection-end-line="13" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#175#176#0" expanded="true" />
+                <element signature="e#214#215#0" expanded="true" />
+                <element signature="e#172#173#0" expanded="true" />
+                <element signature="e#199#200#0" expanded="true" />
+                <element signature="e#361#362#0" expanded="true" />
+                <element signature="e#388#389#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/service/graph/Graph.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="5" column="47" lean-forward="true" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="47" />
             </state>
           </provider>
         </entry>
@@ -146,7 +171,36 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/service/elements/nic/MyNIC.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/service/elements/switches/MySwitch.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="18" column="5" lean-forward="true" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
+              <folding>
+                <element signature="e#327#328#0" expanded="true" />
+                <element signature="e#354#355#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -154,13 +208,18 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/service/Server.java" />
         <option value="$PROJECT_DIR$/src/service/elements/router/IRouter.java" />
         <option value="$PROJECT_DIR$/src/service/elements/IElement.java" />
+        <option value="$PROJECT_DIR$/src/service/graph/Graph.java" />
+        <option value="$PROJECT_DIR$/src/service/elements/switches/MySwitch.java" />
+        <option value="$PROJECT_DIR$/src/service/lan/LAN.java" />
+        <option value="$PROJECT_DIR$/src/service/lan/AbstractLAN.java" />
+        <option value="$PROJECT_DIR$/src/service/lan/MyLAN.java" />
+        <option value="$PROJECT_DIR$/src/service/Server.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-7" />
     <option name="y" value="2" />
     <option name="width" value="1932" />
@@ -171,8 +230,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -236,17 +293,26 @@
               <item name="network" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="service" type="462c0819:PsiDirectoryNode" />
+              <item name="graph" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="network" type="b2602c69:ProjectViewProjectNode" />
+              <item name="network" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
               <item name="lan" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
       <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541496459839" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543177615123" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
@@ -334,10 +400,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="2" width="1932" height="1100" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1176" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26012793" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -345,8 +411,8 @@
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32945737" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32981783" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32885906" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -369,34 +435,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/service/elements/nic/MyNIC.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/service/elements/nic/NIC.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/service/elements/Element.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="7" column="34" lean-forward="true" selection-start-line="6" selection-start-column="4" selection-end-line="7" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/service/Server.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="6" selection-start-line="6" selection-end-line="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/service/elements/router/route_table/IRouteTable.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -404,10 +442,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/service/elements/switches/Switch.java">
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_111/src.zip!/java/util/Objects.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="338">
+          <caret line="200" column="24" selection-start-line="200" selection-start-column="24" selection-end-line="200" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/service/elements/Element.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
-          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+          <caret line="5" column="22" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="22" />
         </state>
       </provider>
     </entry>
@@ -420,8 +465,97 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/service/elements/IElement.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/service/elements/switches/Switch.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/service/graph/Graph.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="47" lean-forward="true" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/service/elements/nic/MyNIC.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/service/elements/switches/MySwitch.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="5" lean-forward="true" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
+          <folding>
+            <element signature="e#327#328#0" expanded="true" />
+            <element signature="e#354#355#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/service/elements/nic/NIC.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
-          <caret line="7" column="9" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="9" />
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/service/elements/switches/AbstractSwitch.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/service/lan/LAN.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/service/lan/AbstractLAN.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="8" column="36" selection-start-line="8" selection-start-column="36" selection-end-line="8" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/service/lan/MyLAN.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" selection-start-line="13" selection-end-line="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#175#176#0" expanded="true" />
+            <element signature="e#214#215#0" expanded="true" />
+            <element signature="e#172#173#0" expanded="true" />
+            <element signature="e#199#200#0" expanded="true" />
+            <element signature="e#361#362#0" expanded="true" />
+            <element signature="e#388#389#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/service/Server.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="33" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

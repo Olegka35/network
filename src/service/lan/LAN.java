@@ -8,4 +8,5 @@ public interface LAN {
     Boolean checkLAN();
     Boolean addElement(IElement element);
     IElement findElement(InetAddress address);
+    String toString();
 }
