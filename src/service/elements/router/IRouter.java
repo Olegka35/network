@@ -1,4 +1,6 @@
 package service.elements.router;
 
-public interface IRouter {
+import service.elements.IElement;
+
+public interface IRouter extends IElement {
 }

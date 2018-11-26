@@ -1,12 +1,13 @@
-package service.elements.nic;
+package service.elements.router;
 
 import service.elements.Element;
 
 import java.net.InetAddress;
 
-public class MyNIC extends Element implements NIC {
+public class MyRouter extends Element implements IRouter {
     @Override
     public void deleteElement() {
+
     }
 
     @Override
@@ -19,14 +20,14 @@ public class MyNIC extends Element implements NIC {
         return null;
     }
 
-
-    @Override
-    public String toString() {
-        return String.format("MyNIC <ID: %d>", id);
-    }
-
     @Override
     public Integer getID() {
         return id;
     }
+
+    @Override
+    public String toString() {
+        return String.format("MyRouter <ID: %d>", id);
+    }
+
 }

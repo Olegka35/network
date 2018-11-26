@@ -4,11 +4,14 @@ import service.elements.IElement;
 import service.graph.Graph;
 
 import java.net.InetAddress;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class MyLAN extends AbstractLAN {
     private static MyLAN myLan;
     private MyLAN() {
-        elements = new Graph<IElement>();
+        graph = new Graph<IElement>();
     }
 
     public static LAN getLAN() {
@@ -23,10 +26,13 @@ public class MyLAN extends AbstractLAN {
     }
 
     @Override
-    public Boolean addElement(IElement element) {
-        elements.addVertice(element);
-        return true;
+    public Integer addElement(IElement element) {
+        Integer id = findFreeID();
+        element.setID(id);
+        graph.addVertice(element);
+        return id;
     }
+
 
     @Override
     public IElement findElement(InetAddress address) {
@@ -35,9 +41,30 @@ public class MyLAN extends AbstractLAN {
 
     @Override
     public String toString() {
-        return "MyLAN{" +
-                "elements=" + elements +
-                '}';
+        StringBuilder sb = new StringBuilder("Element list:\n");
+        Set<IElement> elements = graph.getAllVertices();
+        for(IElement element: elements) {
+            sb.append(element).append(":\n");
+            List<IElement> connectedElements = graph.getAdjacentVertices(element);
+            if(connectedElements != null) {
+                for(IElement e: connectedElements) {
+                    sb.append("    ").append(e).append('\n');
+                }
+            }
+        }
+        return sb.toString();
+    }
+
+    private Integer findFreeID() {
+        Set<Integer> ids = new HashSet<>();
+        for(IElement element: graph.getAllVertices()) {
+            ids.add(element.getID());
+        }
+        for(Integer i = 1; ; i++) {
+            if(!ids.contains(i)) {
+                return i;
+            }
+        }
     }
 
 }

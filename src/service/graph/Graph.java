@@ -188,7 +188,7 @@ public class Graph<V> {
 
             }
         }
-        sb.append("& Set of vertices :" + this.getAllVertices());
+        sb.append("Vertices :" + this.getAllVertices());
         return sb.toString();
     }
 }

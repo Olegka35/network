@@ -7,4 +7,6 @@ public interface IElement {
     void sendMessage(InetAddress address, String message, String info);
     Boolean checkElement();
     String toString();
+    Integer getID();
+    void setID(Integer id);
 }

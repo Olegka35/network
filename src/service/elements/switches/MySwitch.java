@@ -17,4 +17,14 @@ public class MySwitch extends AbstractSwitch {
     public Boolean checkElement() {
         return null;
     }
+
+    @Override
+    public String toString() {
+        return String.format("MySwitch <ID: %d>", id);
+    }
+
+    @Override
+    public Integer getID() {
+        return id;
+    }
 }
