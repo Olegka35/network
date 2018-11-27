@@ -21,6 +21,18 @@ public class Server {
     private static ObjectOutputStream oos;
 
     public static void main(String[] args) throws IOException {
+        LAN lan = new MyLAN();
+        NIC nic1 = new MyNIC();
+        NIC nic2 = new MyNIC();
+        Switch switch1 = new MySwitch();
+
+        lan.addElement(nic1);
+        lan.addElement(nic2);
+        lan.addElement(switch1);
+        lan.connectTwoElements(nic1, switch1);
+        lan.connectTwoElements(nic1, nic2);
+        System.out.println(lan);
+
         server = new ServerSocket(4004);
         System.out.println("Server is started!");
         clientSocket = server.accept();
@@ -29,18 +41,8 @@ public class Server {
         oos = new ObjectOutputStream(clientSocket.getOutputStream());
         ois = new ObjectInputStream(clientSocket.getInputStream());
 
-        InetAddress address = Inet4Address.getByName("192.168.0.100");
-        System.out.println(address.toString());
-
-        LAN lan = new MyLAN();
-        NIC nic1 = new MyNIC();
-        Switch switch1 = new MySwitch();
-
-        lan.addElement(nic1);
-        lan.addElement(switch1);
-        //test.addEdge("2", "1");
-        // test.removeVertex("1");
-        System.out.println(lan);
+        /*InetAddress address = Inet4Address.getByName("192.168.0.100");
+        System.out.println(address.toString());*/
 
         String message = ois.readUTF();
         if(message.equals("getLAN")) {

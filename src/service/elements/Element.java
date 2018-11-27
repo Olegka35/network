@@ -20,4 +20,9 @@ public abstract class Element implements IElement {
     public Integer getID() {
         return id;
     }
+
+    @Override
+    public Boolean connectWith(IElement element) {
+        return lan.connectTwoElements(this, element);
+    }
 }

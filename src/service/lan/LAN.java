@@ -11,4 +11,5 @@ public interface LAN extends Serializable {
     Integer addElement(IElement element);
     IElement findElement(InetAddress address);
     String toString();
+    Boolean connectTwoElements(IElement e1, IElement e2);
 }

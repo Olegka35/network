@@ -47,6 +47,14 @@ public class MyLAN extends AbstractLAN {
         return sb.toString();
     }
 
+    @Override
+    public Boolean connectTwoElements(IElement e1, IElement e2) {
+        if(!e1.checkConnectAbility(e2) || !e2.checkConnectAbility(e1)) return false;
+        graph.addEdge(e1, e2);
+        graph.addEdge(e2, e1);
+        return null;
+    }
+
     private Integer findFreeID() {
         Set<Integer> ids = new HashSet<>();
         for(IElement element: graph.getAllVertices()) {

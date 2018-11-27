@@ -9,4 +9,6 @@ public interface IElement extends Serializable {
     String toString();
     Integer getID();
     void setID(Integer id);
+    Boolean checkConnectAbility(IElement element);
+    Boolean connectWith(IElement element);
 }
