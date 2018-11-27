@@ -6,11 +6,6 @@ import java.net.InetAddress;
 
 public class MyRouter extends Element implements IRouter {
     @Override
-    public void deleteElement() {
-
-    }
-
-    @Override
     public void sendMessage(InetAddress address, String message, String info) {
 
     }

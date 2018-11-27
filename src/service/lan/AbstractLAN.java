@@ -6,5 +6,5 @@ import service.graph.Graph;
 import java.util.List;
 
 public abstract class AbstractLAN implements LAN {
-    static Graph<IElement> graph;
+    Graph<IElement> graph;
 }

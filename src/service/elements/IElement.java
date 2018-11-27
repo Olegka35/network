@@ -1,9 +1,9 @@
 package service.elements;
 
+import java.io.Serializable;
 import java.net.InetAddress;
 
-public interface IElement {
-    void deleteElement();
+public interface IElement extends Serializable {
     void sendMessage(InetAddress address, String message, String info);
     Boolean checkElement();
     String toString();

@@ -6,10 +6,6 @@ import java.net.InetAddress;
 
 public class MyNIC extends Element implements NIC {
     @Override
-    public void deleteElement() {
-    }
-
-    @Override
     public void sendMessage(InetAddress address, String message, String info) {
 
     }

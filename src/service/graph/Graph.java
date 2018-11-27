@@ -1,14 +1,15 @@
 package service.graph;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Graph<V> {
+public class Graph<V> implements Serializable {
     private Map<V, List<Node<V>>> adjacencyList;
     private Set<V> vertices;
     private static final int DEFAULT_WEIGHT = Integer.MAX_VALUE;
 
     public Graph() {
-        this.adjacencyList = new HashMap<>();
+        adjacencyList = new HashMap<>();
         vertices = new HashSet<>();
     }
 

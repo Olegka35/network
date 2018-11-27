@@ -1,17 +1,16 @@
 package service.elements;
 
-import service.graph.Graph;
+import service.lan.LAN;
 
 import java.net.InetAddress;
-import java.util.List;
 
 public abstract class Element implements IElement {
-    protected Graph<IElement> graph;
+    protected LAN lan;
     protected InetAddress address;
     protected Integer id;
 
-    public Graph<IElement> getGraph() {
-        return graph;
+    public LAN getLAN() {
+        return lan;
     }
 
     public void setID(Integer id) {

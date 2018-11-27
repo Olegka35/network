@@ -1,12 +1,10 @@
 package service.elements.switches;
 
+import service.elements.Element;
+
 import java.net.InetAddress;
 
-public class MySwitch extends AbstractSwitch {
-    @Override
-    public void deleteElement() {
-
-    }
+public class MySwitch extends Element implements Switch {
 
     @Override
     public void sendMessage(InetAddress address, String message, String info) {

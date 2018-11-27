@@ -9,15 +9,8 @@ import java.util.List;
 import java.util.Set;
 
 public class MyLAN extends AbstractLAN {
-    private static MyLAN myLan;
-    private MyLAN() {
+    public MyLAN() {
         graph = new Graph<IElement>();
-    }
-
-    public static LAN getLAN() {
-        if(myLan == null)
-            myLan = new MyLAN();
-        return myLan;
     }
 
     @Override
@@ -32,7 +25,6 @@ public class MyLAN extends AbstractLAN {
         graph.addVertice(element);
         return id;
     }
-
 
     @Override
     public IElement findElement(InetAddress address) {
