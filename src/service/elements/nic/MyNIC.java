@@ -3,10 +3,20 @@ package service.elements.nic;
 import service.elements.Element;
 import service.elements.IElement;
 import service.elements.router.Router;
+import service.ip.IP;
 
 import java.net.InetAddress;
+import java.util.ArrayList;
 
 public class MyNIC extends Element implements NIC {
+    public MyNIC() {
+        ports = 1;
+    }
+
+    public IP getIP() {
+        return ip.get(0);
+    }
+
     @Override
     public void sendMessage(InetAddress address, String message, String info) {
 

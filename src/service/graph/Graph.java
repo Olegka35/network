@@ -13,7 +13,7 @@ public class Graph<V> implements Serializable {
         vertices = new HashSet<>();
     }
 
-    private static class Node<V> {
+    private static class Node<V> implements Serializable {
         private V name;
         private int weight;
 

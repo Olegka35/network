@@ -6,25 +6,55 @@ import service.elements.nic.NIC;
 import service.elements.switches.MySwitch;
 import service.elements.switches.Switch;
 import service.graph.Graph;
+import service.ip.IP;
 import service.lan.LAN;
 import service.lan.MyLAN;
 
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Server {
-    private static Socket clientSocket;
-    private static ServerSocket server;
-    private static BufferedWriter out;
-    private static BufferedReader in;
-    private static ObjectInputStream ois;
-    private static ObjectOutputStream oos;
+    public static final int PORT = 4004;
+    public static LinkedList<ServerThread> serverList = new LinkedList<>();
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
+        System.out.println("Server is started!");
+
         LAN lan = new MyLAN();
         NIC nic1 = new MyNIC();
         NIC nic2 = new MyNIC();
         Switch switch1 = new MySwitch();
+        lan.addElement(nic1);
+        lan.addElement(nic2);
+        lan.addElement(switch1);
+        lan.connectTwoElements(nic1, switch1);
+        lan.connectTwoElements(nic1, nic2);
+
+        ServerSocket server = new ServerSocket(PORT);
+        try {
+            while (true) {
+                Socket socket = server.accept();
+                try {
+                    serverList.add(new ServerThread(socket, lan));
+                } catch (IOException e) {
+                    socket.close();
+                }
+            }
+        } finally {
+            server.close();
+        }
+
+
+
+        /*LAN lan = new MyLAN();
+        NIC nic1 = new MyNIC();
+        NIC nic2 = new MyNIC();
+        Switch switch1 = new MySwitch();
+
+        IP ip1 = new IP("192.168.32.123");
+        System.out.println(ip1.getNetIpByMask(32));
 
         lan.addElement(nic1);
         lan.addElement(nic2);
@@ -33,16 +63,13 @@ public class Server {
         lan.connectTwoElements(nic1, nic2);
         System.out.println(lan);
 
-        server = new ServerSocket(4004);
-        System.out.println("Server is started!");
+
+
         clientSocket = server.accept();
         in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
         oos = new ObjectOutputStream(clientSocket.getOutputStream());
         ois = new ObjectInputStream(clientSocket.getInputStream());
-
-        /*InetAddress address = Inet4Address.getByName("192.168.0.100");
-        System.out.println(address.toString());*/
 
         String message = ois.readUTF();
         if(message.equals("getLAN")) {
@@ -54,6 +81,6 @@ public class Server {
         clientSocket.close();
         in.close();
         out.close();
-        server.close();
+        server.close();*/
     }
 }

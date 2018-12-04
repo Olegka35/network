@@ -7,6 +7,14 @@ import service.elements.nic.NIC;
 import java.net.InetAddress;
 
 public class MyRouter extends Element implements Router {
+    public MyRouter(Integer ports) {
+        this.ports = ports;
+    }
+
+    public Integer getPortsNumber() {
+        return ports;
+    }
+
     @Override
     public void sendMessage(InetAddress address, String message, String info) {
 

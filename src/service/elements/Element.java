@@ -1,13 +1,16 @@
 package service.elements;
 
+import service.ip.IP;
 import service.lan.LAN;
 
 import java.net.InetAddress;
+import java.util.List;
 
 public abstract class Element implements IElement {
     protected LAN lan;
-    protected InetAddress address;
     protected Integer id;
+    protected List<IP> ip;
+    protected Integer ports;
 
     public LAN getLAN() {
         return lan;
