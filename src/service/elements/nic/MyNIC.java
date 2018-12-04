@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 public class MyNIC extends Element implements NIC {
     public MyNIC() {
+        ip = new ArrayList<>();
         ports = 1;
     }
 
@@ -30,13 +31,9 @@ public class MyNIC extends Element implements NIC {
 
     @Override
     public String toString() {
-        return String.format("MyNIC <ID: %d>", id);
+        return String.format("MyNIC <IP: %s>", getIP());
     }
 
-    @Override
-    public Integer getID() {
-        return id;
-    }
 
     @Override
     public Boolean checkConnectAbility(IElement element) {

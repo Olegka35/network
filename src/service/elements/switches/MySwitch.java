@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 public class MySwitch extends Element implements Switch {
     public MySwitch() {
-        /*this.ip = new ArrayList<IP>();
-        this.ip.add(ip);
+        ip = new ArrayList<IP>();
+        /*this.ip.add(ip);
         ports = (int)Math.pow(mask, 2)-1;*/
     }
 
@@ -30,12 +30,7 @@ public class MySwitch extends Element implements Switch {
 
     @Override
     public String toString() {
-        return String.format("MySwitch <ID: %d>", id);
-    }
-
-    @Override
-    public Integer getID() {
-        return id;
+        return String.format("MySwitch <ID: %s>", getIP());
     }
 
     @Override

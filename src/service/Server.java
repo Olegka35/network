@@ -3,6 +3,8 @@ package service;
 import service.elements.IElement;
 import service.elements.nic.MyNIC;
 import service.elements.nic.NIC;
+import service.elements.router.MyRouter;
+import service.elements.router.Router;
 import service.elements.switches.MySwitch;
 import service.elements.switches.Switch;
 import service.graph.Graph;
@@ -23,14 +25,18 @@ public class Server {
         System.out.println("Server is started!");
 
         LAN lan = new MyLAN();
+        Router router = new MyRouter(5);
+        lan.addElement(router);
+        router.configurePort(0, new IP("215.70.1.7"));
+
         NIC nic1 = new MyNIC();
         NIC nic2 = new MyNIC();
         Switch switch1 = new MySwitch();
         lan.addElement(nic1);
         lan.addElement(nic2);
         lan.addElement(switch1);
-        lan.connectTwoElements(nic1, switch1);
-        lan.connectTwoElements(nic1, nic2);
+        //lan.connectTwoElements(nic1, switch1);
+        //lan.connectTwoElements(nic1, nic2);
 
         ServerSocket server = new ServerSocket(PORT);
         try {

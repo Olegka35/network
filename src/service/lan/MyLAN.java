@@ -2,8 +2,8 @@ package service.lan;
 
 import service.elements.IElement;
 import service.graph.Graph;
+import service.ip.IP;
 
-import java.net.InetAddress;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -19,15 +19,19 @@ public class MyLAN extends AbstractLAN {
     }
 
     @Override
-    public Integer addElement(IElement element) {
-        Integer id = findFreeID();
-        element.setID(id);
+    public Boolean addElement(IElement element) {
         graph.addVertice(element);
-        return id;
+        element.setLAN(this);
+        return true;
     }
 
     @Override
-    public IElement findElement(InetAddress address) {
+    public IElement findElement(IP address) {
+        Set<IElement> elements = graph.getAllVertices();
+        for(IElement element: elements) {
+            if(element.getIPs().contains(address))
+                return element;
+        }
         return null;
     }
 
@@ -47,24 +51,13 @@ public class MyLAN extends AbstractLAN {
         return sb.toString();
     }
 
-    @Override
+
+
+    /*@Override
     public Boolean connectTwoElements(IElement e1, IElement e2) {
         if(!e1.checkConnectAbility(e2) || !e2.checkConnectAbility(e1)) return false;
         graph.addEdge(e1, e2);
         graph.addEdge(e2, e1);
         return null;
-    }
-
-    private Integer findFreeID() {
-        Set<Integer> ids = new HashSet<>();
-        for(IElement element: graph.getAllVertices()) {
-            ids.add(element.getID());
-        }
-        for(Integer i = 1; ; i++) {
-            if(!ids.contains(i)) {
-                return i;
-            }
-        }
-    }
-
+    }*/
 }

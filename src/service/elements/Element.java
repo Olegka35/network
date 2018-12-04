@@ -8,24 +8,21 @@ import java.util.List;
 
 public abstract class Element implements IElement {
     protected LAN lan;
-    protected Integer id;
     protected List<IP> ip;
     protected Integer ports;
 
+    @Override
     public LAN getLAN() {
         return lan;
     }
 
-    public void setID(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getID() {
-        return id;
+    @Override
+    public void setLAN(LAN lan) {
+        this.lan = lan;
     }
 
     @Override
-    public Boolean connectWith(IElement element) {
-        return lan.connectTwoElements(this, element);
+    public List<IP> getIPs() {
+        return ip;
     }
 }
