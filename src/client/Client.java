@@ -1,7 +1,5 @@
 package client;
 
-import client.threads.ClientReadThread;
-import client.threads.ClientWriteThread;
 import service.elements.IElement;
 import service.elements.nic.NIC;
 import service.lan.LAN;

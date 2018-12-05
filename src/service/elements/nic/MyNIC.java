@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class MyNIC extends Element implements NIC {
     public MyNIC() {
         ip = new ArrayList<>();
+        ip.add(null);
         ports = 1;
     }
 
@@ -40,6 +41,13 @@ public class MyNIC extends Element implements NIC {
         if(element == null) return false;
         if(element instanceof NIC) return false;
         if(element instanceof Router) return false;
+        return true;
+    }
+
+    @Override
+    public Boolean configureNIC(IP address) {
+        if(lan.findElement(address) != null) return false;
+        ip.set(0, address);
         return true;
     }
 }

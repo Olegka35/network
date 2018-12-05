@@ -8,10 +8,11 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 
 public class MySwitch extends Element implements Switch {
+    Integer mask;
+
     public MySwitch() {
         ip = new ArrayList<IP>();
-        /*this.ip.add(ip);
-        ports = (int)Math.pow(mask, 2)-1;*/
+        ip.add(null);
     }
 
     @Override
@@ -38,5 +39,18 @@ public class MySwitch extends Element implements Switch {
         if(element == null) return false;
         if(element instanceof Switch) return false;
         return true;
+    }
+
+    @Override
+    public Boolean configureSwitch(IP address, Integer mask) {
+        if(lan.findElement(address) != null) return false;
+        this.mask = mask;
+        ip.set(0, address);
+        ports = (int)Math.pow(mask, 2)-1;
+        return true;
+    }
+
+    public Integer getMask() {
+        return mask;
     }
 }

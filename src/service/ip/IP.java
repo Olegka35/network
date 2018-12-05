@@ -1,9 +1,10 @@
 package service.ip;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class IP {
+public class IP implements Serializable {
     private ArrayList<Integer> ip;
 
     public IP(String address) throws Exception {
