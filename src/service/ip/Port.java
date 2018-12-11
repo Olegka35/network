@@ -2,7 +2,9 @@ package service.ip;
 
 import service.elements.IElement;
 
-public class Port {
+import java.io.Serializable;
+
+public class Port implements Serializable {
     private IP address;
     private Integer mask;
     private IElement element;

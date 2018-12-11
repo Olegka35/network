@@ -29,44 +29,77 @@ public class MyRouter extends Element implements Router {
     }
 
     @Override
-    public Boolean checkElement() {
-        return null;
-    }
-
-    @Override
     public Boolean checkConnectAbility(IElement element) {
         if(element == null) return false;
         if(getFreePort() == null) return false;
         if(element instanceof Router) return false;
 
-        if(element instanceof Switch) {
-            for(Port port: ports) {
-                if(port.getElement() == null) {
-                    IP ip = port.getAddress();
-                    Integer mask = port.getMask();
 
+        for(Port port: ports) {
+            try {
+                if (port.getElement() != null) continue;
+
+                IP ip = port.getAddress();
+                Integer mask = port.getMask();
+
+                if (element instanceof Switch) {
                     List<IElement> connectedToSwitch = ((Switch) element).getConnectedElements();
-                    if(connectedToSwitch.isEmpty()) return true;
+                    if (connectedToSwitch.isEmpty()) return true;
 
-                    IElement randomElementOfSwitch = element.getPorts().get(0).getElement();
-                    if(randomElementOfSwitch instanceof NIC) {
-                        try {
-                            if (((NIC) randomElementOfSwitch).getIP().getNetIpByMask(((NIC) randomElementOfSwitch).getMask()) == ip.getNetIpByMask(mask))
-                                return true;
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    else if(randomElementOfSwitch instanceof Router) {
+                    IElement randomElementOfSwitch = connectedToSwitch.get(0);
+                    if (randomElementOfSwitch instanceof NIC) {
+                        if (((NIC) randomElementOfSwitch).getIP().getNetIpByMask(((NIC) randomElementOfSwitch).getMask()).equals(ip.getNetIpByMask(mask)))
+                            return true;
+                    } else if (randomElementOfSwitch instanceof Router) {
                         List<Port> ports = ((Router) randomElementOfSwitch).findPortsByIp(ip, mask);
-                        if(!ports.isEmpty()) return true;
+                        if (!ports.isEmpty()) return true;
                     }
-
                 }
+
+                if (element instanceof NIC) {
+                    if (((NIC) element).getIP().getNetIpByMask(((NIC) element).getMask()).equals(ip.getNetIpByMask(mask)))
+                        return true;
+                }
+            } catch(Exception e){
+                return false;
             }
-            return false;
         }
-        return true;
+        return false;
+    }
+
+    @Override
+    public Port getPortForConnectWith(IElement element) {
+        for(Port port: ports) {
+            try {
+                if (port.getElement() != null) continue;
+
+                IP ip = port.getAddress();
+                Integer mask = port.getMask();
+
+                if (element instanceof NIC) {
+                    NIC nic = (NIC) element;
+                    if (nic.getIP().getNetIpByMask(nic.getMask()).equals(ip.getNetIpByMask(mask)))
+                        return port;
+                }
+                if (element instanceof Switch) {
+                    Switch _switch = (Switch)element;
+                    List<IElement> switchElements = _switch.getConnectedElements();
+                    if(switchElements.isEmpty()) return port;
+
+                    IElement switchElement = switchElements.get(0);
+                    if (switchElement instanceof NIC) {
+                        if (((NIC) switchElement).getIP().getNetIpByMask(((NIC) switchElement).getMask()).equals(ip.getNetIpByMask(mask)))
+                            return port;
+                    } else if (switchElement instanceof Router) {
+                        List<Port> ports = ((Router) switchElement).findPortsByIp(ip, mask);
+                        if (!ports.isEmpty()) return port;
+                    }
+                }
+            } catch (Exception e) {
+                return null;
+            }
+        }
+        return null;
     }
 
     @Override
@@ -77,6 +110,7 @@ public class MyRouter extends Element implements Router {
     @Override
     public Boolean configurePort(Integer port, IP address, Integer mask) {
         if(lan.findElement(address) != null) return false;
+        if(port >= 5) return false;
         this.ports.get(port).setAddress(address);
         this.ports.get(port).setMask(mask);
         return true;
@@ -88,7 +122,7 @@ public class MyRouter extends Element implements Router {
         for(Port port: getPorts()) {
             if(port == null || port.getAddress() == null) continue;
             try {
-                if(port.getAddress().getNetIpByMask(mask) == ip.getNetIpByMask(mask))
+                if(port.getAddress().getNetIpByMask(port.getMask()).equals(ip.getNetIpByMask(mask)))
                     ports.add(port);
             } catch (Exception e) {
                 e.printStackTrace();

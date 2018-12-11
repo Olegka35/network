@@ -27,11 +27,6 @@ public class MySwitch extends Element implements Switch {
     }
 
     @Override
-    public Boolean checkElement() {
-        return null;
-    }
-
-    @Override
     public String toString() {
         return String.format("MySwitch <Name: %s>", name);
     }
@@ -46,10 +41,11 @@ public class MySwitch extends Element implements Switch {
                 IP ip = ((NIC) element).getIP();
                 Integer mask = ((NIC) element).getMask();
                 for (Port port : getPorts()) {
+                    if(port.getElement() == null) continue;
                     Port port1 = port.getElement().getPortByElement(this);
                     IP ip1 = port1.getAddress();
                     Integer mask1 = port1.getMask();
-                    if (ip1.getNetIpByMask(mask1) != ip.getNetIpByMask(mask))
+                    if (!ip1.getNetIpByMask(mask1).equals(ip.getNetIpByMask(mask)))
                         return false;
                 }
                 return true;
@@ -59,6 +55,11 @@ public class MySwitch extends Element implements Switch {
             }
         }
         return true;
+    }
+
+    @Override
+    public Port getPortForConnectWith(IElement element) {
+        return getFreePort();
     }
 
 

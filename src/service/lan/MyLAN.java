@@ -3,6 +3,7 @@ package service.lan;
 import service.elements.IElement;
 import service.graph.Graph;
 import service.ip.IP;
+import service.ip.Port;
 
 import java.util.HashSet;
 import java.util.List;
@@ -13,10 +14,6 @@ public class MyLAN extends AbstractLAN {
         graph = new Graph<IElement>();
     }
 
-    @Override
-    public Boolean checkLAN() {
-        return null;
-    }
 
     @Override
     public Boolean addElement(IElement element) {
@@ -28,8 +25,8 @@ public class MyLAN extends AbstractLAN {
     @Override
     public IElement findElement(IP address) {
         Set<IElement> elements = graph.getAllVertices();
-        for(IElement element: elements) {
-            if(element.getIPs().contains(address))
+        for (IElement element : elements) {
+            if (element.getIPs().contains(address))
                 return element;
         }
         return null;
@@ -39,11 +36,11 @@ public class MyLAN extends AbstractLAN {
     public String toString() {
         StringBuilder sb = new StringBuilder("Element list:\n");
         Set<IElement> elements = graph.getAllVertices();
-        for(IElement element: elements) {
+        for (IElement element : elements) {
             sb.append(element).append(":\n");
             List<IElement> connectedElements = graph.getAdjacentVertices(element);
-            if(connectedElements != null) {
-                for(IElement e: connectedElements) {
+            if (connectedElements != null) {
+                for (IElement e : connectedElements) {
                     sb.append("    ").append(e).append('\n');
                 }
             }
@@ -56,11 +53,15 @@ public class MyLAN extends AbstractLAN {
         return e1.checkConnectAbility(e2) & e2.checkConnectAbility(e1);
     }
 
-    /*@Override
+    @Override
     public Boolean connectTwoElements(IElement e1, IElement e2) {
-        if(!e1.checkConnectAbility(e2) || !e2.checkConnectAbility(e1)) return false;
+        if (!e1.checkConnectAbility(e2) || !e2.checkConnectAbility(e1)) return false;
+        Port port1 = e1.getPortForConnectWith(e2);
+        Port port2 = e2.getPortForConnectWith(e1);
+        port1.setElement(e2);
+        port2.setElement(e1);
         graph.addEdge(e1, e2);
         graph.addEdge(e2, e1);
         return null;
-    }*/
+    }
 }

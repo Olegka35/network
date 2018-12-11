@@ -29,19 +29,24 @@ public class Server {
         lan.addElement(router);
         router.configurePort(0, new IP("215.70.1.7"), 24);
         router.configurePort(1, new IP("192.168.0.2"), 24);
+        router.configurePort(2, new IP("192.168.1.0"), 24);
+        router.configurePort(3, new IP("192.168.2.0"), 24);
+        router.configurePort(4, new IP("192.168.3.0"), 24);
 
         NIC nic1 = new MyNIC();
         NIC nic2 = new MyNIC();
-        //Switch switch1 = new MySwitch("FirstSwitch");
+        Switch switch1 = new MySwitch(3, "FirstSwitch");
         lan.addElement(nic1);
         lan.addElement(nic2);
         nic1.configureNIC(new IP("215.70.1.1"), 24);
-        nic2.configureNIC(new IP("192.168.1.1"), 24);
-        //lan.addElement(switch1);
-        System.out.println(lan.checkConnectAbility(nic1, router));
+        nic2.configureNIC(new IP("192.168.0.1"), 24);
+        lan.addElement(switch1);
+        //System.out.println(lan.checkConnectAbility(nic1, router));
         System.out.println(lan.checkConnectAbility(nic2, router));
-        //lan.connectTwoElements(nic1, switch1);
-        //lan.connectTwoElements(nic1, nic2);
+        System.out.println(lan.checkConnectAbility(nic1, switch1));
+        lan.connectTwoElements(nic1, switch1);
+        lan.connectTwoElements(nic2, switch1);
+        lan.connectTwoElements(router, switch1);
 
         ServerSocket server = new ServerSocket(PORT);
         try {
@@ -56,42 +61,5 @@ public class Server {
         } finally {
             server.close();
         }
-
-
-
-        /*LAN lan = new MyLAN();
-        NIC nic1 = new MyNIC();
-        NIC nic2 = new MyNIC();
-        Switch switch1 = new MySwitch();
-
-        IP ip1 = new IP("192.168.32.123");
-        System.out.println(ip1.getNetIpByMask(32));
-
-        lan.addElement(nic1);
-        lan.addElement(nic2);
-        lan.addElement(switch1);
-        lan.connectTwoElements(nic1, switch1);
-        lan.connectTwoElements(nic1, nic2);
-        System.out.println(lan);
-
-
-
-        clientSocket = server.accept();
-        in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-        out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
-        oos = new ObjectOutputStream(clientSocket.getOutputStream());
-        ois = new ObjectInputStream(clientSocket.getInputStream());
-
-        String message = ois.readUTF();
-        if(message.equals("getLAN")) {
-            oos.writeObject(lan);
-            oos.flush();
-            System.out.println("LAN sent to client");
-        }
-
-        clientSocket.close();
-        in.close();
-        out.close();
-        server.close();*/
     }
 }

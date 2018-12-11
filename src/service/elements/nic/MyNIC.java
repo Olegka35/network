@@ -37,12 +37,6 @@ public class MyNIC extends Element implements NIC {
     }
 
     @Override
-    public Boolean checkElement() {
-        return null;
-    }
-
-
-    @Override
     public String toString() {
         return String.format("MyNIC <IP: %s>", getIP());
     }
@@ -69,6 +63,11 @@ public class MyNIC extends Element implements NIC {
             }
         }
         return true;
+    }
+
+    @Override
+    public Port getPortForConnectWith(IElement element) {
+        return getPort();
     }
 
     @Override
