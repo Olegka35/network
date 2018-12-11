@@ -3,20 +3,32 @@ package service.elements.nic;
 import service.elements.Element;
 import service.elements.IElement;
 import service.elements.router.Router;
+import service.elements.switches.Switch;
 import service.ip.IP;
+import service.ip.Port;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MyNIC extends Element implements NIC {
     public MyNIC() {
-        ip = new ArrayList<>();
-        ip.add(null);
-        ports = 1;
+        ports = new ArrayList<Port>();
+        ports.add(new Port());
     }
 
+    public Port getPort() {
+        return getPorts().get(0);
+    }
+
+    @Override
     public IP getIP() {
-        return ip.get(0);
+        return getPorts().get(0).getAddress();
+    }
+
+    @Override
+    public Integer getMask() {
+        return getPorts().get(0).getMask();
     }
 
     @Override
@@ -40,14 +52,31 @@ public class MyNIC extends Element implements NIC {
     public Boolean checkConnectAbility(IElement element) {
         if(element == null) return false;
         if(element instanceof NIC) return false;
-        if(element instanceof Router) return false;
+        if(element instanceof Switch) return true;
+        if(element instanceof Router) {
+            try {
+                IP ip = getIP();
+
+                List<Port> routerPorts = ((Router) element).findPortsByIp(ip, getMask());
+                if(routerPorts.isEmpty()) return false;
+                for(Port port: routerPorts) {
+                    if(port.getElement() == null)
+                        return true;
+                }
+                return false;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         return true;
     }
 
     @Override
-    public Boolean configureNIC(IP address) {
+    public Boolean configureNIC(IP address, Integer mask) {
         if(lan.findElement(address) != null) return false;
-        ip.set(0, address);
+        Port port = getPort();
+        port.setAddress(address);
+        port.setMask(mask);
         return true;
     }
 }

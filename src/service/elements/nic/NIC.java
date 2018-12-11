@@ -7,5 +7,7 @@ import service.ip.IP;
 import java.net.InetAddress;
 
 public interface NIC extends IElement {
-    Boolean configureNIC(IP address);
+    IP getIP();
+    Integer getMask();
+    Boolean configureNIC(IP address, Integer mask);
 }

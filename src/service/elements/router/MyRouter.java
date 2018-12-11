@@ -5,23 +5,22 @@ import service.elements.IElement;
 import service.elements.nic.NIC;
 import service.elements.switches.Switch;
 import service.ip.IP;
+import service.ip.Port;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MyRouter extends Element implements Router {
-    IElement[] elements;
-    public MyRouter(Integer ports) {
-        this.ports = ports;
-        ip = new ArrayList<>();
-        for(int i = 0; i < ports; i++)
-            ip.add(null);
-        elements = new IElement[ports];
+    public MyRouter(Integer portsNumber) {
+        ports = new ArrayList<Port>();
+        for(int i = 0; i < portsNumber; ++i) {
+            ports.add(new Port());
+        }
     }
 
     public Integer getPortsNumber() {
-        return ports;
+        return ports.size();
     }
 
     @Override
@@ -37,40 +36,77 @@ public class MyRouter extends Element implements Router {
     @Override
     public Boolean checkConnectAbility(IElement element) {
         if(element == null) return false;
-        if(element instanceof NIC) return false;
+        if(getFreePort() == null) return false;
         if(element instanceof Router) return false;
 
         if(element instanceof Switch) {
-            List<IP> routerAddress = getIPs();
-            IP switchAddress = element.getIPs().get(0);
-            Integer mask = ((Switch)element).getMask();
-            for(int i = 0; i < ports; ++i) {
-                try {
-                    if(elements[i] == null && ip.get(i) != null && ip.get(i).getNetIpByMask(mask).equals(switchAddress.getNetIpByMask(mask))) {
-                        return true;
+            for(Port port: ports) {
+                if(port.getElement() == null) {
+                    IP ip = port.getAddress();
+                    Integer mask = port.getMask();
+
+                    List<IElement> connectedToSwitch = ((Switch) element).getConnectedElements();
+                    if(connectedToSwitch.isEmpty()) return true;
+
+                    IElement randomElementOfSwitch = element.getPorts().get(0).getElement();
+                    if(randomElementOfSwitch instanceof NIC) {
+                        try {
+                            if (((NIC) randomElementOfSwitch).getIP().getNetIpByMask(((NIC) randomElementOfSwitch).getMask()) == ip.getNetIpByMask(mask))
+                                return true;
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    else if(randomElementOfSwitch instanceof Router) {
+                        List<Port> ports = ((Router) randomElementOfSwitch).findPortsByIp(ip, mask);
+                        if(!ports.isEmpty()) return true;
+                    }
+
                 }
             }
+            return false;
         }
-        return false;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("MyRouter <ID: %s>", getIPs());
-    }
-
-    @Override
-    public Boolean configurePort(Integer port, IP address) {
-        if(lan.findElement(address) != null) return false;
-        this.ip.set(port, address);
         return true;
     }
 
     @Override
+    public String toString() {
+        return String.format("MyRouter <PORTS: %s>", getPorts());
+    }
+
+    @Override
+    public Boolean configurePort(Integer port, IP address, Integer mask) {
+        if(lan.findElement(address) != null) return false;
+        this.ports.get(port).setAddress(address);
+        this.ports.get(port).setMask(mask);
+        return true;
+    }
+
+    @Override
+    public List<Port> findPortsByIp(IP ip, Integer mask) {
+        List<Port> ports = new ArrayList<Port>();
+        for(Port port: getPorts()) {
+            if(port == null || port.getAddress() == null) continue;
+            try {
+                if(port.getAddress().getNetIpByMask(mask) == ip.getNetIpByMask(mask))
+                    ports.add(port);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return ports;
+    }
+
+    @Override
     public IP getPortAddress(Integer port) {
-        return ip.get(port);
+        return getPorts().get(port).getAddress();
+    }
+
+    private Port getFreePort() {
+        for(Port port: ports) {
+            if(port.getElement() == null)
+                return port;
+        }
+        return null;
     }
 }

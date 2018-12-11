@@ -1,6 +1,7 @@
 package service.elements;
 
 import service.ip.IP;
+import service.ip.Port;
 import service.lan.LAN;
 
 import java.io.Serializable;
@@ -13,7 +14,9 @@ public interface IElement extends Serializable {
     String toString();
     Boolean checkConnectAbility(IElement element);
     //Boolean connectWith(IElement element);
+    List<Port> getPorts();
     List<IP> getIPs();
     void setLAN(LAN lan);
     LAN getLAN();
+    Port getPortByElement(IElement element);
 }

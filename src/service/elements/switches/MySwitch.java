@@ -2,26 +2,28 @@ package service.elements.switches;
 
 import service.elements.Element;
 import service.elements.IElement;
+import service.elements.nic.NIC;
 import service.ip.IP;
+import service.ip.Port;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MySwitch extends Element implements Switch {
-    Integer mask;
+    private String name;
 
-    public MySwitch() {
-        ip = new ArrayList<IP>();
-        ip.add(null);
+    public MySwitch(Integer portsNumber, String name) {
+        ports = new ArrayList<Port>();
+        for(int i = 0; i < portsNumber; ++i) {
+            ports.add(new Port());
+        }
+        this.name = name;
     }
 
     @Override
     public void sendMessage(InetAddress address, String message, String info) {
 
-    }
-
-    public IP getIP() {
-        return ip.get(0);
     }
 
     @Override
@@ -31,26 +33,55 @@ public class MySwitch extends Element implements Switch {
 
     @Override
     public String toString() {
-        return String.format("MySwitch <ID: %s>", getIP());
+        return String.format("MySwitch <Name: %s>", name);
     }
 
     @Override
     public Boolean checkConnectAbility(IElement element) {
         if(element == null) return false;
+        if(getFreePort() == null) return false;
         if(element instanceof Switch) return false;
+        if(element instanceof NIC) {
+            try {
+                IP ip = ((NIC) element).getIP();
+                Integer mask = ((NIC) element).getMask();
+                for (Port port : getPorts()) {
+                    Port port1 = port.getElement().getPortByElement(this);
+                    IP ip1 = port1.getAddress();
+                    Integer mask1 = port1.getMask();
+                    if (ip1.getNetIpByMask(mask1) != ip.getNetIpByMask(mask))
+                        return false;
+                }
+                return true;
+            }
+            catch (Exception e ) {
+                return false;
+            }
+        }
         return true;
+    }
+
+
+    public String getName() {
+        return name;
+    }
+
+    private Port getFreePort() {
+        for(Port port: ports) {
+            if(port.getElement() == null)
+                return port;
+        }
+        return null;
     }
 
     @Override
-    public Boolean configureSwitch(IP address, Integer mask) {
-        if(lan.findElement(address) != null) return false;
-        this.mask = mask;
-        ip.set(0, address);
-        ports = (int)Math.pow(mask, 2)-1;
-        return true;
-    }
+    public List<IElement> getConnectedElements() {
+        List<IElement> elements = new ArrayList<>();
 
-    public Integer getMask() {
-        return mask;
+        for(Port port: getPorts()) {
+            if(port.getElement() != null)
+                elements.add(port.getElement());
+        }
+        return elements;
     }
 }
