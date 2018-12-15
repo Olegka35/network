@@ -1,5 +1,8 @@
 package client;
 
+import client.draw.GraphDraw;
+import client.message.MES_TYPE;
+import client.message.Message;
 import service.lan.LAN;
 
 import java.io.*;
@@ -27,8 +30,12 @@ public class ClientInstance {
             try {
                 String type;
                 while (true) {
-                    LAN lan = (LAN) ois.readObject();
-                    System.out.println("LAN: " + lan);
+                    Message message = (Message)ois.readObject();
+                    if(message.getType() == MES_TYPE.GET_LAN) {
+                        LAN lan = (LAN) message.getData();
+                        GraphDraw graph = new GraphDraw(lan);
+                        graph.draw();
+                    }
                 }
             }
             catch (Exception e) {
@@ -43,8 +50,15 @@ public class ClientInstance {
             try {
                 while(true) {
                     System.out.println("Enter command:");
-                    String message = reader.readLine();
-                    oos.writeUTF(message);
+                    String command = reader.readLine();
+                    Message request = new Message();
+
+                    if(command.equals("getLAN")) {
+                        request.setType(MES_TYPE.GET_LAN);
+                        request.setData(command);
+                    }
+
+                    oos.writeObject(request);
                     oos.flush();
                 }
             }

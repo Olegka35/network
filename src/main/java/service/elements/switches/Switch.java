@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface Switch extends IElement {
     List<IElement> getConnectedElements();
+    String getName();
 }

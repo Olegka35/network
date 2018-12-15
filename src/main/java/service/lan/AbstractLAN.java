@@ -7,4 +7,9 @@ import java.util.List;
 
 public abstract class AbstractLAN implements LAN {
     Graph<IElement> graph;
+
+    @Override
+    public Graph getGraph() {
+        return graph;
+    }
 }

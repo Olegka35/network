@@ -62,7 +62,7 @@ public class MySwitch extends Element implements Switch {
         return getFreePort();
     }
 
-
+    @Override
     public String getName() {
         return name;
     }

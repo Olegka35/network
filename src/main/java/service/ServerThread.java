@@ -1,5 +1,7 @@
 package service;
 
+import client.message.MES_TYPE;
+import client.message.Message;
 import service.lan.LAN;
 
 import java.io.*;
@@ -24,15 +26,25 @@ public class ServerThread extends Thread {
     public void run() {
         try {
             while (true) {
-                String message = ois.readUTF();
-                if (message.equals("getLAN")) {
-                    oos.writeObject(lan);
-                    oos.flush();
-                    System.out.println("LAN sent to client");
-                }
+                processClientRequest();
             }
         } catch (Exception e) {
             System.out.println("Client closed the connection");
+        }
+    }
+
+    private void processClientRequest() throws IOException {
+        Message message = null;
+        try {
+            message = (Message)ois.readObject();
+            if (message.getType() == MES_TYPE.GET_LAN) {
+                Message response = new Message(MES_TYPE.GET_LAN, lan);
+                oos.writeObject(response);
+                oos.flush();
+                System.out.println("LAN sent to client");
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 }

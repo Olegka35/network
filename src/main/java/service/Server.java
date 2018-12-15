@@ -45,7 +45,7 @@ public class Server {
         System.out.println(lan.checkConnectAbility(nic2, router));
         System.out.println(lan.checkConnectAbility(nic1, switch1));
         lan.connectTwoElements(nic1, switch1);
-        lan.connectTwoElements(nic2, switch1);
+        lan.connectTwoElements(nic2, router);
         lan.connectTwoElements(router, switch1);
 
         ServerSocket server = new ServerSocket(PORT);
