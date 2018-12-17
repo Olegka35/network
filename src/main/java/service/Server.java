@@ -25,7 +25,7 @@ public class Server {
         System.out.println("Server is started!");
 
         LAN lan = new MyLAN();
-        Router router = new MyRouter(5);
+        Router router = new MyRouter(5, "Router1");
         lan.addElement(router);
         router.configurePort(0, new IP("215.70.1.7"), 24);
         router.configurePort(1, new IP("192.168.0.2"), 24);
@@ -33,8 +33,8 @@ public class Server {
         router.configurePort(3, new IP("192.168.2.0"), 24);
         router.configurePort(4, new IP("192.168.3.0"), 24);
 
-        NIC nic1 = new MyNIC();
-        NIC nic2 = new MyNIC();
+        NIC nic1 = new MyNIC("NIC1");
+        NIC nic2 = new MyNIC("NIC2");
         Switch switch1 = new MySwitch(3, "FirstSwitch");
         lan.addElement(nic1);
         lan.addElement(nic2);

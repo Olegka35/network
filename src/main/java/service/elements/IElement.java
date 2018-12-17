@@ -18,4 +18,5 @@ public interface IElement extends Serializable {
     LAN getLAN();
     Port getPortByElement(IElement element);
     Port getPortForConnectWith(IElement element);
+    String getName();
 }

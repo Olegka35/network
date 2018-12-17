@@ -10,6 +10,7 @@ import java.net.InetAddress;
 public interface LAN extends Serializable {
     Boolean addElement(IElement element);
     IElement findElement(IP address);
+    IElement findElement(String name);
     String toString();
     Boolean checkConnectAbility(IElement e1, IElement e2);
     Boolean connectTwoElements(IElement e1, IElement e2);

@@ -12,11 +12,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MyRouter extends Element implements Router {
-    public MyRouter(Integer portsNumber) {
+    public MyRouter(Integer portsNumber, String name) {
+        if(portsNumber <= 0) {
+            System.out.println("Ports number must be more than 0");
+            return;
+        }
         ports = new ArrayList<Port>();
         for(int i = 0; i < portsNumber; ++i) {
             ports.add(new Port());
         }
+        this.name = name;
     }
 
     public Integer getPortsNumber() {

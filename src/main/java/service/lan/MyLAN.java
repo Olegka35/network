@@ -17,6 +17,10 @@ public class MyLAN extends AbstractLAN {
 
     @Override
     public Boolean addElement(IElement element) {
+        if(findElement(element.getName()) != null) {
+            System.out.println("Element with this name is already exist");
+            return false;
+        }
         graph.addVertice(element);
         element.setLAN(this);
         return true;
@@ -27,6 +31,16 @@ public class MyLAN extends AbstractLAN {
         Set<IElement> elements = graph.getAllVertices();
         for (IElement element : elements) {
             if (element.getIPs().contains(address))
+                return element;
+        }
+        return null;
+    }
+
+    @Override
+    public IElement findElement(String name) {
+        Set<IElement> elements = graph.getAllVertices();
+        for (IElement element : elements) {
+            if (element.getName().equals(name))
                 return element;
         }
         return null;

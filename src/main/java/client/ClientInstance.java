@@ -3,6 +3,7 @@ package client;
 import client.draw.GraphDraw;
 import client.message.MES_TYPE;
 import client.message.Message;
+import service.elements.IElement;
 import service.lan.LAN;
 
 import java.io.*;
@@ -25,16 +26,25 @@ public class ClientInstance {
     }
 
     private class ClientReadThread extends Thread {
+        private GraphDraw graph;
         @Override
         public void run() {
             try {
                 String type;
                 while (true) {
                     Message message = (Message)ois.readObject();
-                    if(message.getType() == MES_TYPE.GET_LAN) {
+                    MES_TYPE mes_type = message.getType();
+                    if(mes_type == MES_TYPE.GET_LAN) {
                         LAN lan = (LAN) message.getData();
-                        GraphDraw graph = new GraphDraw(lan);
+                        graph = new GraphDraw(lan);
                         graph.draw();
+                    }
+                    else if(mes_type == MES_TYPE.CREATE_NIC || mes_type == MES_TYPE.CREATE_SWITCH || mes_type == MES_TYPE.CREATE_ROUTER) {
+                        graph.addElement((IElement)message.getData());
+                        System.out.println("Element " + message.getData().toString() + " was added to the network");
+                    }
+                    else if(mes_type == MES_TYPE.ERROR) {
+                        System.out.println("ERROR: " + message.getData().toString());
                     }
                 }
             }
@@ -48,14 +58,38 @@ public class ClientInstance {
         @Override
         public void run() {
             try {
+                Message request = new Message();
+                request.setType(MES_TYPE.GET_LAN);
+                oos.writeObject(request);
+                oos.flush();
+
                 while(true) {
                     System.out.println("Enter command:");
-                    String command = reader.readLine();
-                    Message request = new Message();
+                    request = new Message();
 
-                    if(command.equals("getLAN")) {
-                        request.setType(MES_TYPE.GET_LAN);
-                        request.setData(command);
+                    String command = reader.readLine();
+                    String commands[] = command.split(" ");
+                    if(commands[0].equals("create_router")) {
+                        if(commands.length < 3 || commands[1].isEmpty() || commands[2].isEmpty() || Integer.parseInt(commands[2]) <= 0) {
+                            System.out.println("User: create_router [router name] [ports number]");
+                            continue;
+                        }
+                        request.setType(MES_TYPE.CREATE_ROUTER);
+                        request.setData(commands);
+                    } else if(commands[0].equals("create_switch")) {
+                        if(commands.length < 3 || commands[1].isEmpty() || commands[2].isEmpty() || Integer.parseInt(commands[2]) <= 0) {
+                            System.out.println("User: create_switch [switch name] [ports number]");
+                            continue;
+                        }
+                        request.setType(MES_TYPE.CREATE_SWITCH);
+                        request.setData(commands);
+                    } else if(commands[0].equals("create_nic")) {
+                        if(commands.length < 2 || commands[1].isEmpty()) {
+                            System.out.println("User: create_nic [nic name]");
+                            continue;
+                        }
+                        request.setType(MES_TYPE.CREATE_NIC);
+                        request.setData(commands);
                     }
 
                     oos.writeObject(request);

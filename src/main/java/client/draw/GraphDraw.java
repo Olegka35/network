@@ -14,34 +14,19 @@ import org.graphstream.graph.implementations.*;
 
 public class GraphDraw {
     private LAN lan;
+    private org.graphstream.graph.Graph result;
 
     public GraphDraw(LAN lan) {
         this.lan = lan;
+        result = new SingleGraph("Network");
     }
 
     public void draw() {
         Graph graph = lan.getGraph();
-        org.graphstream.graph.Graph result = new SingleGraph("Network");
 
         Set<IElement> elements = graph.getAllVertices();
         for (IElement element : elements) {
-            String id = getElementID(element), style, label = null;
-
-            if(element instanceof NIC) {
-                style = "size: 16px; fill-color: green;";
-                label = id;
-            }
-            else  if(element instanceof Switch) {
-                style = "size: 16px; fill-color: blue;";
-                label = ((Switch) element).getName();
-            }
-
-            else
-                style = "size: 16px; fill-color: black;";
-
-            result.addNode(id);
-            result.getNode(id).addAttribute("ui.style", style);
-            if(label != null) result.getNode(id).addAttribute("ui.label", label);
+            addElement(element);
         }
         for (IElement element : elements) {
             String id = getElementID(element);
@@ -60,9 +45,34 @@ public class GraphDraw {
 
     private String getElementID(IElement element) {
         if(element instanceof NIC)
-            return ((NIC) element).getIP().toString();
+            try {
+                return ((NIC) element).getIP().toString();
+            } catch (NullPointerException e) {
+                return element.getName();
+            }
         else
-            return element.toString();
+            return element.getName();
+    }
+
+    public void addElement(IElement element) {
+        String id = getElementID(element), style, label = null;
+
+        if(element instanceof NIC) {
+            style = "size: 16px; fill-color: green;";
+            label = id;
+        }
+        else if(element instanceof Switch) {
+            style = "size: 16px; fill-color: blue;";
+            label = element.getName();
+        }
+        else {
+            style = "size: 16px; fill-color: black;";
+            label = element.getName();
+        }
+
+        result.addNode(id);
+        result.getNode(id).addAttribute("ui.style", style);
+        if(label != null) result.getNode(id).addAttribute("ui.label", label);
     }
 
 }

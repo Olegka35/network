@@ -11,6 +11,7 @@ import java.util.List;
 public abstract class Element implements IElement {
     protected LAN lan;
     protected List<Port> ports;
+    protected String name;
 
     @Override
     public LAN getLAN() {
@@ -45,5 +46,10 @@ public abstract class Element implements IElement {
                 return port;
         }
         return null;
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 }

@@ -12,9 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MyNIC extends Element implements NIC {
-    public MyNIC() {
+    public MyNIC(String name) {
         ports = new ArrayList<Port>();
         ports.add(new Port());
+        this.name = name;
     }
 
     public Port getPort() {

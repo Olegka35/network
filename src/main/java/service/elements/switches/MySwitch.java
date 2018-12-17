@@ -11,9 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MySwitch extends Element implements Switch {
-    private String name;
-
     public MySwitch(Integer portsNumber, String name) {
+        if(portsNumber <= 0) {
+            System.out.println("Ports number must be more than 0");
+            return;
+        }
         ports = new ArrayList<Port>();
         for(int i = 0; i < portsNumber; ++i) {
             ports.add(new Port());
@@ -60,11 +62,6 @@ public class MySwitch extends Element implements Switch {
     @Override
     public Port getPortForConnectWith(IElement element) {
         return getFreePort();
-    }
-
-    @Override
-    public String getName() {
-        return name;
     }
 
     private Port getFreePort() {
