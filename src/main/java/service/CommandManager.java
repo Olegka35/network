@@ -131,6 +131,16 @@ public class CommandManager {
                 message.setData(elementList);
                 return getResponse(message, true);
 
+            case PING:
+                params = (String[])command.getData();
+                e1 = lan.findElement(params[1]);
+                e2 = lan.findElement(params[2]);
+                if(e1 == null || e2 == null)
+                    return getErrorResponse("Unable to ping");
+                List<IElement> elements = lan.pingElements(e1, e2);
+                message.setData(elements);
+                return getResponse(message);
+
             default:  //CREATE_ROUTER, CREATE_NIC, CREATE_SWITCH
                 params = (String[])command.getData();
                 if(lan.findElement(params[1]) != null) {

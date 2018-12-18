@@ -71,6 +71,15 @@ public class ClientInstance {
                         IElement e2 = elements.get(1);
                         System.out.println("Elements " + e1 + " and " + e2 + " were disconnected");
                         graph.removeEdge(e1, e2);
+                    } else if(mes_type == MES_TYPE.PING) {
+                        List<IElement> way = (List<IElement>) message.getData();
+                        if(way == null) System.out.println("Unable to get the path");
+                        else {
+                            System.out.println("Path:");
+                            for(IElement element: way) {
+                                System.out.println("- " + element);
+                            }
+                        }
                     }
                 }
                 catch (Exception e) {
@@ -150,6 +159,13 @@ public class ClientInstance {
                             continue;
                         }
                         request.setType(MES_TYPE.DISCONNECT_ELEMENTS);
+                        request.setData(commands);
+                    } else if(commands[0].equals("ping")) {
+                        if(commands.length < 3) {
+                            System.out.println("Use: ping [element1 IP/name][element2 IP/name]");
+                            continue;
+                        }
+                        request.setType(MES_TYPE.PING);
                         request.setData(commands);
                     }
                     oos.writeObject(request);

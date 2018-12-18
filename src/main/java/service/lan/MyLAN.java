@@ -5,9 +5,7 @@ import service.graph.Graph;
 import service.ip.IP;
 import service.ip.Port;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class MyLAN extends AbstractLAN {
     public MyLAN() {
@@ -115,5 +113,47 @@ public class MyLAN extends AbstractLAN {
         graph.removeEdge(e1, e2);
         graph.removeEdge(e2, e1);
         return true;
+    }
+
+    @Override
+    public List<IElement> pingElements(IElement e1, IElement e2) {
+        Queue<IElement> queue = new PriorityQueue<>();
+        List<IElement> passedElements = new ArrayList<>();
+        Map<IElement, IElement> prevElement = new HashMap<>();
+        boolean result = false;
+
+        queue.add(e1);
+        prevElement.put(e1, null);
+        while(!queue.isEmpty()) {
+            IElement current = queue.remove();
+            if(current == e2) {
+                result = true;
+                break;
+            }
+            passedElements.add(current);
+            for(Port port: current.getPorts()) {
+                IElement next = port.getElement();
+                if(next != null) {
+                    if(!passedElements.contains(next) && !queue.contains(next)) {
+                        queue.add(next);
+                        prevElement.put(next, current);
+                    }
+                }
+            }
+        }
+
+        if(result) {
+            List<IElement> way = new LinkedList<>();
+            way.add(e2);
+            IElement prev = prevElement.get(e2);
+            while(prev != null) {
+                way.add(prev);
+                prev = prevElement.get(prev);
+            }
+            Collections.reverse(way);
+            return way;
+        }
+
+        return null;
     }
 }
