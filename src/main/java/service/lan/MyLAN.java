@@ -27,20 +27,31 @@ public class MyLAN extends AbstractLAN {
     }
 
     @Override
-    public IElement findElement(IP address) {
+    public IElement findElement(String name) {
         Set<IElement> elements = graph.getAllVertices();
-        for (IElement element : elements) {
-            if (element.getIPs().contains(address))
-                return element;
+
+        try {
+            IP address = new IP(name);
+
+            for (IElement element : elements) {
+                if (element.getIPs().contains(address))
+                    return element;
+            }
+        } catch (Exception e) {
+            for (IElement element : elements) {
+                if (element.getName().equals(name))
+                    return element;
+            }
         }
+
         return null;
     }
 
     @Override
-    public IElement findElement(String name) {
+    public IElement findElement(IP address) {
         Set<IElement> elements = graph.getAllVertices();
         for (IElement element : elements) {
-            if (element.getName().equals(name))
+            if (element.getIPs().contains(address))
                 return element;
         }
         return null;

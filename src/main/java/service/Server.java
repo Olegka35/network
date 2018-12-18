@@ -53,7 +53,7 @@ public class Server {
             while (true) {
                 Socket socket = server.accept();
                 try {
-                    serverList.add(new ServerThread(socket, lan));
+                    serverList.add(new ServerThread(socket, lan, serverList));
                 } catch (IOException e) {
                     socket.close();
                 }

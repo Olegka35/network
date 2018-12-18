@@ -39,9 +39,8 @@ public class MyNIC extends Element implements NIC {
 
     @Override
     public String toString() {
-        return String.format("MyNIC <IP: %s>", getIP());
+        return String.format("MyNIC <IP: %s, Name: %s>", getIP(), name);
     }
-
 
     @Override
     public Boolean checkConnectAbility(IElement element) {

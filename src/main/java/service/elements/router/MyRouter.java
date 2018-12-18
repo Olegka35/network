@@ -109,7 +109,7 @@ public class MyRouter extends Element implements Router {
 
     @Override
     public String toString() {
-        return String.format("MyRouter <PORTS: %s>", getPorts());
+        return String.format("MyRouter <PORTS: %s, Name: %s>", getPorts(), name);
     }
 
     @Override

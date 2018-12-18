@@ -75,4 +75,13 @@ public class GraphDraw {
         if(label != null) result.getNode(id).addAttribute("ui.label", label);
     }
 
+    public void updateLabel(String name, String label) {
+        IElement element = lan.findElement(name);
+        String id = getElementID(element);
+        result.getNode(id).setAttribute("ui.label", label);
+    }
+
+    public LAN getLan() {
+        return lan;
+    }
 }
