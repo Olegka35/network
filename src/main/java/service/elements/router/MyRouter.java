@@ -115,6 +115,7 @@ public class MyRouter extends Element implements Router {
     @Override
     public Boolean configurePort(Integer port, IP address, Integer mask) {
         if(lan.findElement(address) != null) return false;
+        if(this.ports.get(port).getElement() != null) return false;
         if(port >= 5) return false;
         this.ports.get(port).setAddress(address);
         this.ports.get(port).setMask(mask);

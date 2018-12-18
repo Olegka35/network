@@ -10,6 +10,7 @@ import service.lan.LAN;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.List;
 
 public class ClientInstance {
     private Socket clientSocket;
@@ -31,37 +32,50 @@ public class ClientInstance {
         private GraphDraw graph;
         @Override
         public void run() {
-            try {
-                while (true) {
-                    Message message = (Message)ois.readObject();
+            while (true) {
+                try {
+                    Message message = (Message) ois.readObject();
                     MES_TYPE mes_type = message.getType();
-                    if(mes_type == MES_TYPE.GET_LAN) {
+                    if (mes_type == MES_TYPE.GET_LAN) {
                         LAN lan = (LAN) message.getData();
                         graph = new GraphDraw(lan);
                         graph.draw();
-                    }
-                    else if(mes_type == MES_TYPE.CREATE_NIC || mes_type == MES_TYPE.CREATE_SWITCH || mes_type == MES_TYPE.CREATE_ROUTER) {
-                        graph.addElement((IElement)message.getData());
+                    } else if (mes_type == MES_TYPE.CREATE_NIC || mes_type == MES_TYPE.CREATE_SWITCH || mes_type == MES_TYPE.CREATE_ROUTER) {
+                        graph.addElement((IElement) message.getData());
                         System.out.println("Element " + message.getData().toString() + " was added to the network");
-                        graph.getLan().addElement((IElement)message.getData());
-                    }
-                    else if(mes_type == MES_TYPE.GET_ELEMENT_INFO) {
-                        System.out.println(message.getData().toString());
-                    }
-                    else if(mes_type == MES_TYPE.ERROR) {
+                        //graph.getLan().addElement((IElement)message.getData());
+                    } else if (mes_type == MES_TYPE.GET_ELEMENT_INFO) {
+                        IElement element = (IElement) message.getData();
+                        System.out.println(element.toString());
+                    } else if (mes_type == MES_TYPE.ERROR) {
                         System.out.println("ERROR: " + message.getData().toString());
-                    }
-                    else if(mes_type == MES_TYPE.CONFIGURE_ELEMENT) {
-                        System.out.println("Configure success: " + message.getData());
-                        String[] response = message.getData().toString().split(" ");
-                        if(response[0].equals("NIC")) {
-                            graph.updateLabel(response[1], response[2]);
+                    } else if (mes_type == MES_TYPE.CONFIGURE_ELEMENT) {
+                        IElement element = (IElement) message.getData();
+                        System.out.println("Configure success: " + element);
+                        if (element instanceof NIC) {
+                            graph.updateLabel((NIC) element);
                         }
+                    } else if (mes_type == MES_TYPE.REMOVE_ELEMENT) {
+                        IElement element = (IElement) message.getData();
+                        System.out.println("Element " + element + " was deleted");
+                        graph.removeElement(element);
+                    } else if (mes_type == MES_TYPE.CONNECT_ELEMENTS) {
+                        List<IElement> elements = (List<IElement>) message.getData();
+                        IElement e1 = elements.get(0);
+                        IElement e2 = elements.get(1);
+                        System.out.println("Elements " + e1 + " and " + e2 + " were connected");
+                        graph.addEdge(e1, e2);
+                    } else if (mes_type == MES_TYPE.DISCONNECT_ELEMENTS) {
+                        List<IElement> elements = (List<IElement>) message.getData();
+                        IElement e1 = elements.get(0);
+                        IElement e2 = elements.get(1);
+                        System.out.println("Elements " + e1 + " and " + e2 + " were disconnected");
+                        graph.removeEdge(e1, e2);
                     }
                 }
-            }
-            catch (Exception e) {
-                e.printStackTrace();
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -115,6 +129,27 @@ public class ClientInstance {
                             continue;
                         }
                         request.setType(MES_TYPE.CONFIGURE_ELEMENT);
+                        request.setData(commands);
+                    } else if(commands[0].equals("remove")) {
+                        if(commands.length < 2) {
+                            System.out.println("Use: remove [element IP/name]");
+                            continue;
+                        }
+                        request.setType(MES_TYPE.REMOVE_ELEMENT);
+                        request.setData(commands[1]);
+                    } else if(commands[0].equals("connect")) {
+                        if(commands.length < 3) {
+                            System.out.println("Use: connect [element1 IP/name][element2 IP/name]");
+                            continue;
+                        }
+                        request.setType(MES_TYPE.CONNECT_ELEMENTS);
+                        request.setData(commands);
+                    } else if(commands[0].equals("disconnect")) {
+                        if(commands.length < 3) {
+                            System.out.println("Use: disconnect [element1 IP/name][element2 IP/name]");
+                            continue;
+                        }
+                        request.setType(MES_TYPE.DISCONNECT_ELEMENTS);
                         request.setData(commands);
                     }
                     oos.writeObject(request);

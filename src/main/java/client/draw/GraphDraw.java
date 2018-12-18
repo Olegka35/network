@@ -75,13 +75,33 @@ public class GraphDraw {
         if(label != null) result.getNode(id).addAttribute("ui.label", label);
     }
 
-    public void updateLabel(String name, String label) {
-        IElement element = lan.findElement(name);
+    public void removeElement(IElement element) {
         String id = getElementID(element);
-        result.getNode(id).setAttribute("ui.label", label);
+        result.removeNode(id);
     }
 
-    public LAN getLan() {
-        return lan;
+    public void updateLabel(NIC element) {
+        String id = getElementID(element);
+        try {
+            result.getNode(id).setAttribute("ui.label", element.getIP());
+        } catch(Exception e) {
+            result.getNode(element.getName()).setAttribute("ui.label", element.getIP());
+        }
+    }
+
+    public void addEdge(IElement e1, IElement e2) {
+        String id1 = getElementID(e1);
+        String id2 = getElementID(e2);
+        if(result.getNode(id1) == null) id1 = e1.getName();
+        if(result.getNode(id2) == null) id2 = e2.getName();
+        result.addEdge(id1+id2, id1, id2);
+    }
+
+    public void removeEdge(IElement e1, IElement e2) {
+        String id1 = getElementID(e1);
+        String id2 = getElementID(e2);
+        if(result.getNode(id1) == null) id1 = e1.getName();
+        if(result.getNode(id2) == null) id2 = e2.getName();
+        result.removeEdge(id1, id2);
     }
 }

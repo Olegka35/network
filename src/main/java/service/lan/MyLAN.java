@@ -27,6 +27,20 @@ public class MyLAN extends AbstractLAN {
     }
 
     @Override
+    public Boolean removeElement(String name) {
+        IElement element = findElement(name);
+        if(element == null)
+            return false;
+        List<Port> ports = element.getPorts();
+        for(Port port: ports) {
+            if(port.getElement() != null)
+                return false;
+        }
+        graph.removeVertex(element);
+        return true;
+    }
+
+    @Override
     public IElement findElement(String name) {
         Set<IElement> elements = graph.getAllVertices();
 
@@ -87,6 +101,19 @@ public class MyLAN extends AbstractLAN {
         port2.setElement(e1);
         graph.addEdge(e1, e2);
         graph.addEdge(e2, e1);
-        return null;
+        return true;
+    }
+
+    @Override
+    public Boolean disconnectElements(IElement e1, IElement e2) {
+        if(e1.getPortByElement(e2) == null)
+            return false;
+        Port port1 = e1.getPortByElement(e2);
+        Port port2 = e2.getPortByElement(e1);
+        port1.setElement(null);
+        port2.setElement(null);
+        graph.removeEdge(e1, e2);
+        graph.removeEdge(e2, e1);
+        return true;
     }
 }

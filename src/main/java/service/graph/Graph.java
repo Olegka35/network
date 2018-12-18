@@ -83,6 +83,20 @@ public class Graph<V> implements Serializable {
         this.vertices.add(dest);
     }
 
+    public void removeEdge(V src, V dest) {
+        Objects.requireNonNull(src);
+        Objects.requireNonNull(dest);
+
+        List<Node<V>> adjacentVertices = adjacencyList.get(src);
+        Node<V> removedNode = null;
+        for(Node<V> node: adjacentVertices)
+            if(node.name == dest)
+                removedNode = node;
+
+        if(removedNode != null)
+            adjacentVertices.remove(removedNode);
+    }
+
     public void addVertice(V vert) {
         Objects.requireNonNull(vert);
         this.vertices.add(vert);
